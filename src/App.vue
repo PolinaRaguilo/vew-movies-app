@@ -1,15 +1,24 @@
 <template>
-  <img alt="Vue logo" src="./assets/logo.png">
-  <HelloWorld msg="Welcome to Your Vue.js App"/>
+<p>d</p>
+|<Button type="success">Primary</Button>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue';
+import { Button } from 'vant';
+import { mapActions } from 'vuex';
 
 export default {
-  name: 'App',
   components: {
-    HelloWorld,
+    Button,
+  },
+  name: 'App',
+  methods: {
+    ...mapActions({
+      fetchMovies: 'fetchMovies',
+    }),
+  },
+  mounted() {
+    this.fetchMovies();
   },
 };
 </script>
