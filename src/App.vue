@@ -14,7 +14,7 @@ export default {
   name: 'App',
   methods: {
     ...mapActions({
-      fetchMovies: 'fetchMovies',
+      fetchMovies: 'movies/fetchMovies',
     }),
   },
   mounted() {
