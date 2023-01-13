@@ -1,15 +1,14 @@
 <template>
-<p>d</p>
-|<Button type="success">Primary</Button>
+  <MoviesList :list="moviesList"></MoviesList>
 </template>
 
 <script>
-import { Button } from 'vant';
-import { mapActions } from 'vuex';
+import { mapActions, mapGetters } from 'vuex';
+import MoviesList from './components/MoviesList.vue';
 
 export default {
   components: {
-    Button,
+    MoviesList,
   },
   name: 'App',
   methods: {
@@ -17,19 +16,21 @@ export default {
       fetchMovies: 'movies/fetchMovies',
     }),
   },
+  computed: {
+    ...mapGetters({
+      moviesList: 'movies/moviesList',
+    }),
+  },
   mounted() {
-    this.fetchMovies();
+
   },
 };
 </script>
 
 <style lang="scss">
 #app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
+  font-family: Arial, Helvetica, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
 }
 </style>
