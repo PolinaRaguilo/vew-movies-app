@@ -1,16 +1,25 @@
 <template>
-  <PosterBg :posterUrl="posterBg"/>
+  <PosterBg :posterUrl="posterBg" />
   <MoviesList :list="moviesList" @changePoster="onChangePoster"></MoviesList>
+  <MoviesPagination
+    :current-page="currentPage"
+    :per-page="moviesPerPage"
+    :total="moviesTotal"
+    @onChangePage="onChangePage"
+  />
 </template>
 
 <script>
 import { mapActions, mapGetters } from 'vuex';
 import MoviesList from './components/MoviesList.vue';
 import PosterBg from './components/PosterBg.vue';
+import MoviesPagination from './components/MoviesPagination.vue';
 
 export default {
   components: {
-    MoviesList, PosterBg,
+    MoviesList,
+    PosterBg,
+    MoviesPagination,
   },
   name: 'App',
   data() {
@@ -21,19 +30,24 @@ export default {
   methods: {
     ...mapActions({
       fetchMovies: 'movies/fetchMovies',
+      changePage: 'movies/changePage',
     }),
     onChangePoster(poster) {
       this.posterBg = poster;
+    },
+    onChangePage(page) {
+      this.changePage(page);
     },
   },
   computed: {
     ...mapGetters({
       moviesList: 'movies/moviesList',
+      currentPage: 'movies/currentPage',
+      moviesPerPage: 'movies/moviesPerPage',
+      moviesTotal: 'movies/moviesTotal',
     }),
   },
-  mounted() {
-
-  },
+  mounted() {},
 };
 </script>
 

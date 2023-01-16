@@ -15,10 +15,14 @@ const moviesStore = {
     currentPage: ({ currentPage }) => currentPage,
     moviesPerPage: ({ moviesPerPage }) => moviesPerPage,
     moviesList: ({ movies }) => movies,
+    moviesTotal: ({ top250Ids }) => Object.keys(top250Ids).length,
   },
   mutations: {
     setMovies(state, value) {
       state.movies = value;
+    },
+    setCurrentPage(state, value) {
+      state.currentPage = value;
     },
   },
   actions: {
@@ -39,6 +43,10 @@ const moviesStore = {
       } catch (err) {
         console.log(err);
       }
+    },
+    changePage({ commit, dispatch }, page) {
+      commit('setCurrentPage', page);
+      dispatch('fetchMovies');
     },
   },
 };
