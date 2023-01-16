@@ -1,20 +1,30 @@
 <template>
-  <MoviesList :list="moviesList"></MoviesList>
+  <PosterBg :posterUrl="posterBg"/>
+  <MoviesList :list="moviesList" @changePoster="onChangePoster"></MoviesList>
 </template>
 
 <script>
 import { mapActions, mapGetters } from 'vuex';
 import MoviesList from './components/MoviesList.vue';
+import PosterBg from './components/PosterBg.vue';
 
 export default {
   components: {
-    MoviesList,
+    MoviesList, PosterBg,
   },
   name: 'App',
+  data() {
+    return {
+      posterBg: '',
+    };
+  },
   methods: {
     ...mapActions({
       fetchMovies: 'movies/fetchMovies',
     }),
+    onChangePoster(poster) {
+      this.posterBg = poster;
+    },
   },
   computed: {
     ...mapGetters({
@@ -29,6 +39,7 @@ export default {
 
 <style lang="scss">
 #app {
+  position: relative;
   font-family: Arial, Helvetica, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;

@@ -6,7 +6,9 @@
     <Row justify="center" align="center">
       <template v-if="isExist">
         <Col span="4" offset="1" v-for="movie in list" :key="movie.imdbID">
-          <MovieItem :movie="movie"/>
+        <MovieItem :movie="movie"
+        @focus="onMouseOverMovie(movie.Poster)"
+        @mouseover="onMouseOverMovie(movie.Poster)" />
         </Col>
       </template>
       <template v-else>No films</template>
@@ -34,15 +36,24 @@ export default {
       return !!Object.keys(this.list).length;
     },
   },
+  methods: {
+    onMouseOverMovie(poster) {
+      this.$emit('changePoster', poster);
+    },
+  },
 };
 </script>
 <style scoped>
 .list-title {
   font-size: 50px;
   margin-bottom: 30px;
+  margin-top: 0;
+  color: #fff;
+  text-align: center;
+  font-weight: 400;
 }
 
-.list-wrapper{
+.list-wrapper {
   padding: 0px 70px;
 }
 </style>
