@@ -36,7 +36,10 @@ export default {
       this.posterBg = poster;
     },
     onChangePage(page) {
-      this.changePage(page);
+      this.$router.push({ query: { page } });
+    },
+    onPageQueryChange(query) {
+      this.changePage(+query.page);
     },
   },
   computed: {
@@ -47,7 +50,13 @@ export default {
       moviesTotal: 'movies/moviesTotal',
     }),
   },
-  mounted() {},
+  watch: {
+    '$route.query': {
+      handler: 'onPageQueryChange',
+      immidiate: true,
+      deep: true,
+    },
+  },
 };
 </script>
 
