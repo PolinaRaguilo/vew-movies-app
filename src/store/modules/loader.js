@@ -1,10 +1,6 @@
 const loaderStore = {
-  state: {
-    isShowLoader: false,
-  },
-  getters: {
-    isShowLoader: ({ isShowLoader }) => isShowLoader,
-  },
+  state: { isShowLoader: false },
+  getters: { isShowLoader: ({ isShowLoader }) => isShowLoader },
   mutations: {
     toggleLoader(state, value) {
       state.isShowLoader = value;

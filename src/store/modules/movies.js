@@ -16,6 +16,7 @@ const moviesStore = {
     moviesPerPage: ({ moviesPerPage }) => moviesPerPage,
     moviesList: ({ movies }) => movies,
     moviesTotal: ({ top250Ids }) => Object.keys(top250Ids).length,
+    top250Ids: ({ top250Ids }) => top250Ids,
   },
   mutations: {
     setMovies(state, value) {
@@ -23,6 +24,9 @@ const moviesStore = {
     },
     setCurrentPage(state, value) {
       state.currentPage = value;
+    },
+    removeMovie(state, index) {
+      state.top250Ids.splice(index, 1);
     },
   },
   actions: {
@@ -50,6 +54,13 @@ const moviesStore = {
     changePage({ commit, dispatch }, page) {
       commit('setCurrentPage', page);
       dispatch('fetchMovies');
+    },
+    removeMovie({ commit, dispatch, getters }, id) {
+      const index = getters.top250Ids.findIndex((item) => item === id);
+      if (index !== -1) {
+        commit('removeMovie', index);
+        dispatch('fetchMovies');
+      }
     },
   },
 };

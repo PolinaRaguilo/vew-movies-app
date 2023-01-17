@@ -15,9 +15,7 @@ import { Pagination } from 'vant';
 
 export default {
   name: 'MoviesPagination',
-  components: {
-    Pagination,
-  },
+  components: { Pagination },
   props: {
     currentPage: {
       type: Number,

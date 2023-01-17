@@ -8,10 +8,9 @@
       </div>
       <div class="movie-controls">
         <Button class="button" size="small" block>Edit</Button>
-        <Button class="button" size="small" block>Remove</Button>
+        <Button class="button" size="small" block @click="removeItem">Remove</Button>
       </div>
     </div>
-
   </div>
 </template>
 
@@ -20,9 +19,7 @@ import { Button } from 'vant';
 
 export default {
   name: 'MovieItem',
-  components: {
-    Button,
-  },
+  components: { Button },
   props: {
     movie: {
       type: Object,
@@ -31,9 +28,12 @@ export default {
   },
   computed: {
     posterBG() {
-      return {
-        'background-image': `url(${this.movie.Poster})`,
-      };
+      return { 'background-image': `url(${this.movie.Poster})` };
+    },
+  },
+  methods: {
+    removeItem() {
+      this.$emit('removeHandler', { id: this.movie.imdbID, title: this.movie.Title });
     },
   },
 };
@@ -46,7 +46,7 @@ export default {
   cursor: pointer;
   border-radius: 5px;
   overflow: hidden;
-  transition: all .2s ease-in;
+  transition: all 0.2s ease-in;
   height: 400px;
 }
 
@@ -75,7 +75,7 @@ export default {
   justify-content: space-between;
   box-sizing: border-box;
   opacity: 0;
-  transition: all .2s ease-in;
+  transition: all 0.2s ease-in;
 }
 
 .movie-item:hover .movie-info-wrap {
@@ -83,14 +83,14 @@ export default {
   background-color: rgba(0, 0, 0, 0.7);
 }
 
-.movie-title{
+.movie-title {
   font-size: 20px;
   color: #fff;
   margin: 0;
   margin-bottom: 10px;
 }
 
-.movie-year{
+.movie-year {
   font-size: 14px;
   color: #fff;
 }
@@ -100,18 +100,19 @@ export default {
   justify-content: space-between;
 }
 
-.movie-controls>button {
+.movie-controls > button {
   width: 100%;
 }
 
-.button{
+.button {
   background-color: transparent;
   color: #fff;
 }
-.button:hover{
-  color: rgb(185, 185, 185)
+.button:hover {
+  background-color: #fff;
+  color: #000;
 }
-.button:first-child{
+.button:first-child {
   margin-right: 10px;
 }
 </style>

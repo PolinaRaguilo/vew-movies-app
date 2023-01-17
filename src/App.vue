@@ -26,9 +26,7 @@ export default {
   },
   name: 'App',
   data() {
-    return {
-      posterBg: '',
-    };
+    return { posterBg: '' };
   },
   methods: {
     ...mapActions({

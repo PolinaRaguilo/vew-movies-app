@@ -10,9 +10,7 @@ const store = createStore({
   state: {},
   getters: {},
   mutations: {},
-  actions: {
-
-  },
+  actions: {},
 });
 
 store.dispatch('initMoviesStore');
