@@ -28,7 +28,11 @@ export default {
   },
   computed: {
     posterBG() {
-      return { 'background-image': `url(${this.movie.Poster})` };
+      const poster =
+        this.movie.Poster === 'N/A'
+          ? 'https://upload.wikimedia.org/wikipedia/commons/thumb/4/41/Noimage.svg/739px-Noimage.svg.png'
+          : this.movie.Poster;
+      return { 'background-image': `url(${poster})` };
     },
   },
   methods: {

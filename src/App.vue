@@ -1,6 +1,7 @@
 <template>
   <CustomLoader />
   <PosterBg :posterUrl="posterBg" />
+  <CustomHeader />
   <MoviesList :list="moviesList" @changePoster="onChangePoster"></MoviesList>
   <MoviesPagination
     :current-page="currentPage"
@@ -12,10 +13,11 @@
 
 <script>
 import { mapActions, mapGetters } from 'vuex';
-import MoviesList from './components/MoviesList.vue';
-import PosterBg from './components/PosterBg.vue';
-import MoviesPagination from './components/MoviesPagination.vue';
-import CustomLoader from './components/CustomLoader.vue';
+import CustomLoader from '@/components/CustomLoader.vue';
+import CustomHeader from '@/components/CustomHeader.vue';
+import MoviesList from '@/components/MoviesList.vue';
+import PosterBg from '@/components/PosterBg.vue';
+import MoviesPagination from '@/components/MoviesPagination.vue';
 
 export default {
   components: {
@@ -23,6 +25,7 @@ export default {
     PosterBg,
     MoviesPagination,
     CustomLoader,
+    CustomHeader,
   },
   name: 'App',
   data() {

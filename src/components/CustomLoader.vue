@@ -8,12 +8,8 @@ import { Loading } from 'vant';
 
 export default {
   name: 'CustomLoader',
-  components: {
-    Loading,
-  },
-  computed: {
-    ...mapGetters(['isShowLoader']),
-  },
+  components: { Loading },
+  computed: { ...mapGetters(['isShowLoader']) },
 };
 </script>
 

@@ -9,6 +9,7 @@ const moviesStore = {
     moviesPerPage: 12,
     currentPage: 1,
     movies: {},
+    isSearch: false,
   },
   getters: {
     slicedIds: ({ top250Ids }) => (from, to) => top250Ids.slice(from, to),
@@ -17,6 +18,7 @@ const moviesStore = {
     moviesList: ({ movies }) => movies,
     moviesTotal: ({ top250Ids }) => Object.keys(top250Ids).length,
     top250Ids: ({ top250Ids }) => top250Ids,
+    isSearch: ({ isSearch }) => isSearch,
   },
   mutations: {
     setMovies(state, value) {
@@ -27,6 +29,9 @@ const moviesStore = {
     },
     removeMovie(state, index) {
       state.top250Ids.splice(index, 1);
+    },
+    setIsSearch(state, value) {
+      state.isSearch = value;
     },
   },
   actions: {
@@ -61,6 +66,26 @@ const moviesStore = {
         commit('removeMovie', index);
         dispatch('fetchMovies');
       }
+    },
+    async searchMovie({ dispatch, commit }, query) {
+      try {
+        dispatch('loaderHandler', true, { root: true });
+        const resp = await axiosInstance.get(`/?s=${query}`);
+        if (resp.Error) {
+          throw Error(resp.Error);
+        }
+        const formattedData = formatRespData(resp.Search);
+        commit('setMovies', formattedData);
+
+        console.log(formattedData);
+      } catch (err) {
+        console.log(err.message);
+      } finally {
+        dispatch('loaderHandler', false, { root: true });
+      }
+    },
+    toggleIsSearch({ commit }, isSearch) {
+      commit('setIsSearch', isSearch);
     },
   },
 };

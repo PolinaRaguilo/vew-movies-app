@@ -1,7 +1,7 @@
 <template>
   <Dialog />
   <div class="list-wrapper">
-    <h3 class="list-title">IMDB Top 250</h3>
+    <h3 class="list-title">{{ listTitle }}</h3>
     <Row justify="center" align="center">
       <template v-if="isExist">
         <Col span="4" offset="1" v-for="movie in list" :key="movie.imdbID">
@@ -20,7 +20,7 @@
 
 <script>
 import { Col, Row, Dialog, showConfirmDialog } from 'vant';
-import { mapActions } from 'vuex';
+import { mapActions, mapGetters } from 'vuex';
 import MovieItem from './MovieItem.vue';
 
 export default {
@@ -38,8 +38,12 @@ export default {
     },
   },
   computed: {
+    ...mapGetters({ isSearch: 'movies/isSearch' }),
     isExist() {
       return !!Object.keys(this.list).length;
+    },
+    listTitle() {
+      return this.isSearch ? 'Search result' : 'IMDB Top 250';
     },
   },
   methods: {
@@ -48,20 +52,17 @@ export default {
       this.$emit('changePoster', poster);
     },
     async onRemove({ id, title }) {
-      // eslint-disable-next-line no-unused-vars
-      const isConfirmed = await showConfirmDialog({
+      await showConfirmDialog({
         title: 'Are you sure ?',
         message: `Click confirm if you wan to remove ${title}.`,
         cancelButtonText: 'Cancel',
         confirmButtonText: 'Confirm',
-      })
-        .then(() => {
-          this.removeMovie(id);
-        })
-        .catch(() => {
-          // on cancel
-        });
-      console.log(isConfirmed);
+        className: 'modal-confirm',
+        width: 450,
+        confirmButtonColor: '#a436dd',
+      }).then(() => {
+        this.removeMovie(id);
+      });
     },
   },
 };
@@ -78,5 +79,9 @@ export default {
 
 .list-wrapper {
   padding: 0px 70px;
+}
+
+.modal-confirm.van-dialog {
+  width: 500px !important;
 }
 </style>
