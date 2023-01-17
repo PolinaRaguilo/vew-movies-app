@@ -32,8 +32,9 @@ const moviesStore = {
       },
       root: true,
     },
-    async fetchMovies({ getters: { currentPage, moviesPerPage, slicedIds }, commit }) {
+    async fetchMovies({ getters: { currentPage, moviesPerPage, slicedIds }, commit, dispatch }) {
       try {
+        dispatch('loaderHandler', true, { root: true });
         const from = (currentPage * moviesPerPage) - moviesPerPage;
         const to = currentPage * moviesPerPage;
         const requests = slicedIds(from, to).map((id) => axiosInstance.get(`/?i=${id}`));
@@ -42,6 +43,8 @@ const moviesStore = {
         commit('setMovies', formattedData);
       } catch (err) {
         console.log(err);
+      } finally {
+        dispatch('loaderHandler', false, { root: true });
       }
     },
     changePage({ commit, dispatch }, page) {

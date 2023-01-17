@@ -48,6 +48,7 @@ export default {
 <style scoped>
 .pagination-wrapper {
   max-width: 250px;
+  padding-bottom: 30px;
   margin: 0 auto;
 }
 

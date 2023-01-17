@@ -1,4 +1,5 @@
 <template>
+  <CustomLoader />
   <PosterBg :posterUrl="posterBg" />
   <MoviesList :list="moviesList" @changePoster="onChangePoster"></MoviesList>
   <MoviesPagination
@@ -14,12 +15,14 @@ import { mapActions, mapGetters } from 'vuex';
 import MoviesList from './components/MoviesList.vue';
 import PosterBg from './components/PosterBg.vue';
 import MoviesPagination from './components/MoviesPagination.vue';
+import CustomLoader from './components/CustomLoader.vue';
 
 export default {
   components: {
     MoviesList,
     PosterBg,
     MoviesPagination,
+    CustomLoader,
   },
   name: 'App',
   data() {
