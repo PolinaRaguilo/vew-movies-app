@@ -47,6 +47,7 @@ export default {
     },
   },
   methods: {
+    ...mapActions(['showNotify']),
     ...mapActions({ removeMovie: 'movies/removeMovie' }),
     onMouseOverMovie(poster) {
       this.$emit('changePoster', poster);
@@ -62,6 +63,11 @@ export default {
         confirmButtonColor: '#a436dd',
       }).then(() => {
         this.removeMovie(id);
+        this.showNotify({
+          variant: 'success',
+          msg: 'You have successfully deleted movie!',
+          duration: 3000,
+        });
       });
     },
   },

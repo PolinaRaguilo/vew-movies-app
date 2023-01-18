@@ -51,7 +51,7 @@ const moviesStore = {
         const formattedData = formatRespData(resp);
         commit('setMovies', formattedData);
       } catch (err) {
-        console.log(err);
+        dispatch('showNotify', { variant: 'danger', msg: 'Something went wrong', duration: 2000 }, { root: true });
       } finally {
         dispatch('loaderHandler', false, { root: true });
       }
@@ -76,10 +76,8 @@ const moviesStore = {
         }
         const formattedData = formatRespData(resp.Search);
         commit('setMovies', formattedData);
-
-        console.log(formattedData);
       } catch (err) {
-        console.log(err.message);
+        dispatch('showNotify', { variant: 'danger', msg: err.message, duration: 1000 }, { root: true });
       } finally {
         dispatch('loaderHandler', false, { root: true });
       }

@@ -1,5 +1,6 @@
 <template>
   <CustomLoader />
+  <CustomAlert />
   <PosterBg :posterUrl="posterBg" />
   <CustomHeader />
   <MoviesList :list="moviesList" @changePoster="onChangePoster"></MoviesList>
@@ -18,6 +19,7 @@ import CustomHeader from '@/components/CustomHeader.vue';
 import MoviesList from '@/components/MoviesList.vue';
 import PosterBg from '@/components/PosterBg.vue';
 import MoviesPagination from '@/components/MoviesPagination.vue';
+import CustomAlert from '@/components/CustomAlert.vue';
 
 export default {
   components: {
@@ -26,6 +28,7 @@ export default {
     MoviesPagination,
     CustomLoader,
     CustomHeader,
+    CustomAlert,
   },
   name: 'App',
   data() {
