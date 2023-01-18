@@ -1,5 +1,8 @@
 <template>
   <Dialog />
+  <Dialog v-model:show="modalInfo" confirmButtonText="Close" width="50%" showConfirmButton="false">
+    <MovieInfoContent :selectedMovie="selectedMovieInfo" />
+  </Dialog>
   <div class="list-wrapper">
     <h3 class="list-title">{{ listTitle }}</h3>
     <Row justify="center" align="center">
@@ -10,6 +13,7 @@
             @focus="onMouseOverMovie(movie.Poster)"
             @mouseover="onMouseOverMovie(movie.Poster)"
             @removeHandler="onRemove"
+            @showModalInfo="infoModalHandler"
           />
         </Col>
       </template>
@@ -21,6 +25,7 @@
 <script>
 import { Col, Row, Dialog, showConfirmDialog } from 'vant';
 import { mapActions, mapGetters } from 'vuex';
+import MovieInfoContent from './MovieInfoContent.vue';
 import MovieItem from './MovieItem.vue';
 
 export default {
@@ -29,6 +34,10 @@ export default {
     Row,
     MovieItem,
     Dialog,
+    MovieInfoContent,
+  },
+  data() {
+    return { modalInfo: false, selectedId: '' };
   },
   name: 'MoviesList',
   props: {
@@ -44,6 +53,9 @@ export default {
     },
     listTitle() {
       return this.isSearch ? 'Search result' : 'IMDB Top 250';
+    },
+    selectedMovieInfo() {
+      return this.selectedId ? this.list[this.selectedId] : null;
     },
   },
   methods: {
@@ -69,6 +81,10 @@ export default {
           duration: 3000,
         });
       });
+    },
+    infoModalHandler(id) {
+      this.modalInfo = true;
+      this.selectedId = id;
     },
   },
 };

@@ -35,12 +35,7 @@ const moviesStore = {
     },
   },
   actions: {
-    initMoviesStore: {
-      handler({ dispatch }) {
-        dispatch('fetchMovies');
-      },
-      root: true,
-    },
+
     async fetchMovies({ getters: { currentPage, moviesPerPage, slicedIds }, commit, dispatch }) {
       try {
         dispatch('loaderHandler', true, { root: true });

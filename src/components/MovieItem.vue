@@ -7,7 +7,7 @@
         <span class="movie-year">{{ movie.Year }}</span>
       </div>
       <div class="movie-controls">
-        <Button class="button" size="small" block>Edit</Button>
+        <Button class="button" size="small" block @click="openInfoModal">Info</Button>
         <Button class="button" size="small" block @click="removeItem">Remove</Button>
       </div>
     </div>
@@ -38,6 +38,9 @@ export default {
   methods: {
     removeItem() {
       this.$emit('removeHandler', { id: this.movie.imdbID, title: this.movie.Title });
+    },
+    openInfoModal() {
+      this.$emit('showModalInfo', this.movie.imdbID);
     },
   },
 };
