@@ -1,6 +1,6 @@
 # Movies catalog
 
-Movies catalog using Vue 3, Vuex and Vant (for UI components).
+Movies catalog using Vue 3 (options api), Vuex and Vant (for UI components).
 api: http://www.omdbapi.com
 
 ## Project setup
