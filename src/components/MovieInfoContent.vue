@@ -3,10 +3,23 @@
   <div class="content-wrappper">
     <div class="flex-wrapper">
       <div>
-        <img :src="selectedMovie.Poster" alt="poster" class="modal-img" />
+        <img :src="posterBG" alt="poster" class="modal-img" />
       </div>
       <div class="info-wrapper">
         <p class="movie-title">{{ selectedMovie.Title }}</p>
+        <div class="ratings-wrapper">
+          <Rate
+            void-icon="star"
+            void-color="#eee"
+            :size="23"
+            allow-half
+            readonly
+            count="10"
+            color="gold"
+            v-model="currentRating"
+          />
+          <div class="ratings-value">{{ this.selectedMovie.imdbRating }}/10</div>
+        </div>
         <p class="movie-plot">{{ selectedMovie.Plot }}</p>
         <div class="flex-wrapper labels-padding">
           <CustomLabel :value="selectedMovie.Year" :color="'#008000'" />
@@ -27,13 +40,27 @@
   </div>
 </template>
 <script>
+import { Rate } from 'vant';
 import CustomLabel from './CustomLabel.vue';
 import InfoRow from './InfoRow.vue';
 
 export default {
   name: 'MovieInfoContent',
-  components: { CustomLabel, InfoRow },
+  components: { CustomLabel, InfoRow, Rate },
   props: { selectedMovie: { type: Object, required: true } },
+
+  data() {
+    return { currentRating: +this.selectedMovie.imdbRating };
+  },
+  computed: {
+    posterBG() {
+      const poster =
+        this.selectedMovie.Poster === 'N/A'
+          ? 'https://upload.wikimedia.org/wikipedia/commons/thumb/4/41/Noimage.svg/739px-Noimage.svg.png'
+          : this.selectedMovie.Poster;
+      return poster;
+    },
+  },
 };
 </script>
 <style scoped>
@@ -47,6 +74,16 @@ p {
 
 .flex-wrapper {
   display: flex;
+}
+
+.ratings-wrapper {
+  display: flex;
+  align-items: center;
+}
+.ratings-value {
+  font-size: 15px;
+  padding-left: 10px;
+  font-weight: 600;
 }
 .info-wrapper {
   padding-left: 25px;
@@ -68,7 +105,7 @@ p {
   padding-bottom: 10px;
 }
 .movie-plot {
-  padding-bottom: 10px;
+  padding: 10px 0px;
   letter-spacing: 0.5px;
 }
 .labels-padding {

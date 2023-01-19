@@ -1,6 +1,12 @@
 <template>
   <Dialog />
-  <Dialog v-model:show="modalInfo" confirmButtonText="Close" width="50%" showConfirmButton="false">
+  <Dialog
+    v-model:show="modalInfo"
+    confirmButtonText="Close"
+    width="50%"
+    showConfirmButton="false"
+    class="info-modal"
+  >
     <MovieInfoContent :selectedMovie="selectedMovieInfo" />
   </Dialog>
   <div class="list-wrapper">
@@ -102,8 +108,11 @@ export default {
 .list-wrapper {
   padding: 0px 70px;
 }
+</style>
 
-.modal-confirm.van-dialog {
-  width: 500px !important;
+<style>
+.van-dialog.info-modal {
+  overflow-y: auto;
+  max-height: 90vh;
 }
 </style>
